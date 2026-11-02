@@ -1,0 +1,12 @@
+{
+  "type": "raw_http",
+  "head_sha": "0123456789abcdef0123456789abcdef01234567",
+  "captured_at": "2026-11-02T07:00:00Z",
+  "claim": "GET /health returns 200 on the preview build",
+  "artifact": {
+    "method": "GET",
+    "url": "https://preview.example.com/health",
+    "status": 200,
+    "response_excerpt": "{\"ok\":true}"
+  }
+}

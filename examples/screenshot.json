@@ -1,0 +1,11 @@
+{
+  "type": "screenshot",
+  "head_sha": "0123456789abcdef0123456789abcdef01234567",
+  "captured_at": "2026-11-02T07:05:00Z",
+  "claim": "Settings page shows the new Billing tab",
+  "artifact": {
+    "path": "proof/settings-billing.png",
+    "viewport": "1440x900"
+  },
+  "notes": "Captured with Playwright, logged-in test user."
+}

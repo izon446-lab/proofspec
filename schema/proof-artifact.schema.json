@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/izon446-lab/proofspec/schema/proof-artifact.schema.json",
+  "title": "Proof artifact",
+  "type": "object",
+  "required": [
+    "type",
+    "head_sha",
+    "captured_at",
+    "claim",
+    "artifact"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "enum": [
+        "raw_http",
+        "screenshot",
+        "mp4",
+        "before_after_metric"
+      ]
+    },
+    "head_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "raw_http"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "artifact": {
+            "type": "object",
+            "required": [
+              "method",
+              "url",
+              "status",
+              "response_excerpt"
+            ],
+            "properties": {
+              "method": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "status": {
+                "type": "integer"
+              },
+              "response_excerpt": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "screenshot"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "artifact": {
+            "type": "object",
+            "required": [
+              "path",
+              "viewport"
+            ],
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "viewport": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "mp4"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "artifact": {
+            "type": "object",
+            "required": [
+              "path",
+              "duration_s"
+            ],
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "duration_s": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "before_after_metric"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "artifact": {
+            "type": "object",
+            "required": [
+              "metric",
+              "before",
+              "after",
+              "unit"
+            ],
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "before": {
+                "type": "number"
+              },
+              "after": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
